@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,24 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Routes pour les membres (utilisateurs et administrateurs)
+Route::middleware(['auth'])->group(function () {
+    // Route accessible à tous les membres (utilisateurs et administrateurs)
+    Route::get('/testuser', function () {
+        $role = auth()->user()->role->name;
+        return "Bonjour $role !";
+    })->name('testuser');
+
+
+    
+    // // Routes accessibles uniquement aux administrateurs
+
+    // Route::middleware(['role:admin'])->group(function () {
+    //     Route::get('/testadmin', function () {
+    //         $role = auth()->user()->role->name;
+    //         return "Wow un $role !";
+    //     })->name('testadmin');
+    // });
+});
