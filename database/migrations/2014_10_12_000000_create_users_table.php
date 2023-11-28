@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
 
             $table->string('logo')->nullable(); // Ajoutez des colonnes spécifiques à l'admin
             $table->string('slogan')->nullable();
+            $table->date('date')->nullable();
+
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -61,6 +61,7 @@
                                 </div>
                             </div>
 
+                           
                             <div class="row mb-3">
                                 <label for="role"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
@@ -69,8 +70,7 @@
                                     <select id="role" class="form-control @error('role') is-invalid @enderror"
                                         name="role" required>
                                         <option value="2" {{ old('role') == '2' ? 'selected' : '' }}>Client</option>
-                                        <option value="1" {{ old('role') == '1' ? 'selected' : '' }}>Association
-                                        </option>
+                                        <option value="1" {{ old('role') == '1' ? 'selected' : '' }}>Association</option>
                                     </select>
 
                                     @error('role')
@@ -80,6 +80,25 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="row mb-3" id="adminFieldsDateCreation"
+                            style="display: {{ old('role') == '1' ? 'block' : 'none' }}">
+                            <label for="date"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Date Creation') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="date" type="date"
+                                    class="form-control @error('date') is-invalid @enderror" name="date"
+                                    value="{{ old('date') }}">
+
+                                @error('date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                             <!-- Champs spécifiques à l'admin (Association) -->
                             <div class="row mb-3" id="adminFields"
@@ -117,6 +136,8 @@
                                     @enderror
                                 </div>
                             </div>
+
+
 
                             <!-- ... Autres champs existants ... -->
 
@@ -165,9 +186,12 @@
                                     if (this.value === '1') {
                                         adminFields.style.display = 'block';
                                         adminFieldsSlogan.style.display = 'block';
+                                        adminFieldsDateCreation.style.display='block';
                                     } else {
                                         adminFields.style.display = 'none';
                                         adminFieldsSlogan.style.display = 'none';
+                                        adminFieldsDateCreation.style.display='none';
+
                                     }
                                 });
                             </script>

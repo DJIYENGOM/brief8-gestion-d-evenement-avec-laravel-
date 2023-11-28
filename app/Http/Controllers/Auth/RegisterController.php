@@ -35,8 +35,10 @@ class RegisterController extends Controller
 
         // Ajoutez des règles de validation pour les champs spécifiques à l'admin
         if ($data['role'] == '1') {
-            $rules['logo'] = ['required', 'image', ]; 
+            $rules['logo'] = ['required', 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', ]; 
             $rules['slogan'] = ['required', 'string', 'max:255'];
+            $rules['date'] = ['required', 'date'];
+
         }
 
         return Validator::make($data, $rules);
@@ -52,6 +54,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'logo' => $data['logo'] ?? null, 
             'slogan' => $data['slogan'] ?? null,
+            'date' => $data['date'] ?? null,
+
         ]);
     }
 }
