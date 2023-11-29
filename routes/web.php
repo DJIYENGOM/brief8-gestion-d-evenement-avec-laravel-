@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AssociationController;
+use App\Http\Controllers\EvenementController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,21 +27,28 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Routes pour les membres (utilisateurs et administrateurs)
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role:user'])->group(function () {
     // Route accessible à tous les membres (utilisateurs et administrateurs)
     Route::get('/testuser', function () {
         $role = auth()->user()->role->name;
         return "Bonjour $role !";
     })->name('testuser');
 
-
-    
-    // // Routes accessibles uniquement aux administrateurs
-
-    // Route::middleware(['role:admin'])->group(function () {
-    //     Route::get('/testadmin', function () {
-    //         $role = auth()->user()->role->name;
-    //         return "Wow un $role !";
-    //     })->name('testadmin');
-    // });
 });
+
+
+ Route::middleware(['auth','role:association'])->group(function () {
+        Route::get('/accueil', [AssociationController::class, 'index']);
+        Route::get('/ajout', [EvenementController::class, 'ajout']);
+        Route::post('/AjoutEven', [EvenementController::class, 'create']);
+        Route::get('/liste', [EvenementController::class, 'ListeEven']);
+
+    Route::delete('supprimer/{id}', [EvenementController::class,'destroy'])->name('delete');
+    Route::get('modifier/{id}', [EvenementController::class,'edit'])->name('edit');
+    Route::post('modifier/{id}', [EvenementController::class,'update'])->name('modifier');
+
+
+
+
+});
+

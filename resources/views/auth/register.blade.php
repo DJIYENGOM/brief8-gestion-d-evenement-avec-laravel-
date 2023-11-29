@@ -182,11 +182,12 @@
                                 document.getElementById('role').addEventListener('change', function() {
                                     var adminFields = document.getElementById('adminFields');
                                     var adminFieldsSlogan = document.getElementById('adminFieldsSlogan');
+                                    var adminFieldsDateCreation = document.getElementById('adminFieldsDateCreation');
 
                                     if (this.value === '1') {
                                         adminFields.style.display = 'block';
                                         adminFieldsSlogan.style.display = 'block';
-                                        adminFieldsDateCreation.style.display='block';
+                                        adminFieldsDateCreation.style.display='block'; 
                                     } else {
                                         adminFields.style.display = 'none';
                                         adminFieldsSlogan.style.display = 'none';

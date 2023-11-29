@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -15,8 +17,17 @@ class RegisterController extends Controller
 
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/testuser';
-
+    protected function registered(Request $request, $user)
+    {
+        if ($user->role_id == 1) {
+            return redirect()->intended('/accueil');
+        } elseif ($user->role_id == 2) {
+            return redirect()->intended('/biens/listeUser');
+        }
+    
+       return redirect()->intended($this->redirectPath());
+        
+    }
 
     public function __construct()
     {
@@ -35,7 +46,7 @@ class RegisterController extends Controller
 
         // Ajoutez des règles de validation pour les champs spécifiques à l'admin
         if ($data['role'] == '1') {
-            $rules['logo'] = ['required', 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', ]; 
+            $rules['logo'] = ['required', 'image']; 
             $rules['slogan'] = ['required', 'string', 'max:255'];
             $rules['date'] = ['required', 'date'];
 
