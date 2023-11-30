@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\MonEmail;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,5 +69,7 @@ class RegisterController extends Controller
             'date' => $data['date'] ?? null,
 
         ]);
+       
     }
+
 }

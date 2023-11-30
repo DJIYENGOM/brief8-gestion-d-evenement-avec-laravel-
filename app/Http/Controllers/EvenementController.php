@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evenement;
+use App\Models\User;
+use App\Notifications\MonEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EvenementController extends Controller
 {
@@ -21,7 +24,8 @@ class EvenementController extends Controller
 
     public function ListeEven()
     {
-        $evens = Evenement::all();
+        $evens = Evenement::where('user_id',auth()->user()->id)->get();
+       
         return view('evenement.liste', compact('evens'));
     }
     public function ajout()
@@ -53,8 +57,16 @@ class EvenementController extends Controller
         $even->date_env = $request->get('date_env');
 
         $even->user_id = auth()->user()->id;
-        $even->save();
+       // $even->save();
+       if ($even->save()) {
+        $users=User::where('role_id', 2)->get();
+        foreach($users as $user){
+            $user->notify(new MonEmail());
+        }
         return redirect('/liste');
+    }else {
+        return 'bonjour';
+    }
 
         // pour l'envoie de email
         // if ($even->save()) {
