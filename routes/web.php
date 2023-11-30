@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssociationController;
 use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,11 +29,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Routes pour les membres (utilisateurs et administrateurs)
 Route::middleware(['auth','role:user'])->group(function () {
-    // Route accessible à tous les membres (utilisateurs et administrateurs)
-    Route::get('/testuser', function () {
-        $role = auth()->user()->role->name;
-        return "Bonjour $role !";
-    })->name('testuser');
+
+    Route::get('/liste/even', [EvenementController::class, 'ListeEvenClient']);
+    Route::get('/voirplus/{id}', [EvenementController::class, 'Detail']);
+    Route::post('/reservation/ajout/{id}', [ReservationController::class, 'CreerReservation']);
+
 
 });
 
@@ -47,8 +48,10 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('modifier/{id}', [EvenementController::class,'edit'])->name('edit');
     Route::post('modifier/{id}', [EvenementController::class,'update'])->name('modifier');
 
+    Route::get('/liste/{id}', [ReservationController::class, 'ListeReservation']);
 
 
+    Route::get('refuser/{id}', [ReservationController::class,'updateReservation'])->name('refuser');
 
 });
 

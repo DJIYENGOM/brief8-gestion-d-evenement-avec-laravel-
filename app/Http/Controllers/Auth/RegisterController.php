@@ -22,7 +22,7 @@ class RegisterController extends Controller
         if ($user->role_id == 1) {
             return redirect()->intended('/accueil');
         } elseif ($user->role_id == 2) {
-            return redirect()->intended('/biens/listeUser');
+            return redirect()->intended('/liste/even');
         }
     
        return redirect()->intended($this->redirectPath());

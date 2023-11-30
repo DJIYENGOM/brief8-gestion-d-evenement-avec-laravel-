@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class EvenementController extends Controller
 {
+    public function ListeEvenClient()
+    {
+        $evens = Evenement::all();
+        return view('client.accueil', compact('evens'));
+    }
+    public function Detail($id)
+    {
+        $even = Evenement::find($id);
+        return view('client.detail', compact('even'));
+    }
+   
 
     public function ListeEven()
     {

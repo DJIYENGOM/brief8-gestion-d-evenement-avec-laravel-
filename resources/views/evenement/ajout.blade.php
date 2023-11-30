@@ -34,7 +34,9 @@
 
                     <div class="form-group">
                         <label for="description">Description de l'evenement</label>
-                        <input type="text" class="form-control" id="description" placeholder="ajouter une description" name="description">
+                        {{-- <input type="text" class="form-control" id="description" placeholder="ajouter une description" name="description"> --}}
+                        <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+
 
                     </div>
 

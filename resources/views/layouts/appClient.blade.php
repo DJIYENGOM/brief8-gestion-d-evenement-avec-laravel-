@@ -84,16 +84,19 @@
               </button> --}}
               <div class="collapse navbar-collapse" id="navbarColor04">
                 <ul class="navbar-nav me-auto">
-                  <li class="nav-item">
+
+                  {{-- <li class="nav-item">
                     <a class="nav-link active" href="/accueil">Accueil
                       <span class="visually-hidden">(current)</span>
                     </a>
-                  </li>
-                  <li class="nav-item">
+                    
+                  </li> --}}
+                  {{-- <li class="nav-item">
                     <a class="nav-link" href="/ajout">Ajouter un even</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/liste">Liste EVENS</a>
+                    <a class="nav-link" href="/liste">Liste EVENS</a> --}}
+
                   {{-- </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/liste"></a>
