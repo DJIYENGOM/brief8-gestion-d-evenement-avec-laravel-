@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evenement;
 use App\Models\User;
+use App\Notifications\EmailEven;
 use App\Notifications\MonEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,7 +62,7 @@ class EvenementController extends Controller
        if ($even->save()) {
         $users=User::where('role_id', 2)->get();
         foreach($users as $user){
-            $user->notify(new MonEmail());
+            $user->notify(new EmailEven());
         }
         return redirect('/liste');
     }else {

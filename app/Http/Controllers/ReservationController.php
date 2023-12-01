@@ -7,6 +7,7 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Evenement;
 use App\Models\User;
+use App\Notifications\EmailRefu;
 use App\Notifications\MonEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -54,6 +55,10 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
         $reservation->accepter = 'refuser';
         if ($reservation->update()) {
+
+            $user = User::find($reservation->user_id);
+            $user->notify(new EmailRefu());
+
             return back()->with("Vous avez réfuser la demande de la réservation");
         }
     }
